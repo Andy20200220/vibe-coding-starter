@@ -1,12 +1,20 @@
 ﻿# Vibe Coding 项目模板
 
+
+![License](https://img.shields.io/badge/license-MIT-green)
+![Tools](https://img.shields.io/badge/tools-Copilot%20%7C%20Claude%20Code%20%7C%20Codex-blue)
+![Lang](https://img.shields.io/badge/lang-%E4%B8%AD%E6%96%87%20%7C%20English-orange)
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+![Audience](https://img.shields.io/badge/for-non--coders%20%7C%20developers-lightgrey)
+
+
 [English](#what-is-this) | 中文
 
 面向不懂代码的人的 AI 协作开发项目模板。用这个模板创建新项目，即可获得一套完整的 AI 协作工作流。
 
 ## 这是什么
 
-一套预配置的 AI 协作规则和工作流，让不懂代码的人也能通过 AI（GitHub Copilot / Claude Code / Codex CLI）高效开发软件产品。
+一套预配置的 AI 协作规则和工作流，让不懂代码的人也能通过 AI（GitHub Copilot / Claude Code / Codex）高效开发软件产品。
 
 它解决这些问题：
 - AI 自由发挥导致实现和你的预期不一致
@@ -41,7 +49,7 @@ git init
 |------|------|
 | **GitHub Copilot** | 把 github-copilot/ 下的 .github/ 和 docs/ 复制到项目根 |
 | **Claude Code** | 把 claude-code/CLAUDE-template.md 复制到根目录，改名 CLAUDE.md，再把 .claude/ 复制到项目根 |
-| **Codex CLI** | 把 codex/AGENTS-template.md 复制到根目录改名 AGENTS.md，其余 AGENTS-*.md 按文件名提示复制到对应子目录 |
+| **Codex** | 把 codex/AGENTS-template.md 复制到根目录改名 AGENTS.md，其余 AGENTS-*.md 按文件名提示复制到对应子目录 |
 
 ### 4. 开始对话
 
@@ -59,6 +67,57 @@ AI 会自动读取预配置的规则，按以下流程引导你：
 6. **分步写代码** — 每次只改少量文件，每步都告诉你怎么验证
 
 ## 项目结构
+
+
+﻿### 三工具共享架构
+
+```mermaid
+flowchart TB
+    subgraph Tools["AI Coding Tools"]
+        GC["GitHub Copilot"]
+        CC["Claude Code"]
+        CX["Codex"]
+    end
+
+    subgraph Config["Tool Config"]
+        GCI[".github/copilot-instructions.md"]
+        CCI["CLAUDE.md (multi-layer)"]
+        CXI["AGENTS.md (multi-layer)"]
+    end
+
+    subgraph Agents["Shared Agent System"]
+        direction LR
+        PA["Product Agent"]
+        SA["SysEng Agent"]
+        PL["Planning Agent"]
+        DA["Dev Agent"]
+        TA["Test Agent"]
+        RA["Release Agent"]
+        PA --> SA --> PL --> DA --> TA --> RA
+    end
+
+    subgraph Skills["Shared Skills"]
+        BC["Behavior Contract"]
+        GI["Guided Impl"]
+        TD["TDD"]
+        CR["Code Review"]
+        TS["Tech Selection"]
+    end
+
+    subgraph Docs["Shared Docs"]
+        CT["docs/contracts/"]
+        VF["docs/verification/"]
+        DS["docs/design/"]
+        PL2["docs/plans/"]
+    end
+
+    GC --> GCI --> Agents
+    CC --> CCI --> Agents
+    CX --> CXI --> Agents
+    Agents --> Skills --> Docs
+```
+
+> 三个工具各有专属配置文件，但共享同一套 Agent 角色体系、技能库和文档结构。换工具不换流程。
 
 ```
 ├── github-copilot/                       ← GitHub Copilot（VS Code）配置
@@ -78,7 +137,7 @@ AI 会自动读取预配置的规则，按以下流程引导你：
 │   └── docs/
 │       ├── contracts/
 │       └── verification/
-├── codex/                               ← Codex CLI 配置
+├── codex/                               ← Codex 配置
 │   ├── README.md                        ← 接入指南
 │   ├── AGENTS-template.md               ← → 根 AGENTS.md（全局约束+Agent调度）
 │   ├── AGENTS-src.md                    ← → src/AGENTS.md（代码规范）
@@ -87,7 +146,7 @@ AI 会自动读取预配置的规则，按以下流程引导你：
 │   ├── AGENTS-docs-design.md            ← → docs/design/AGENTS.md（设计规范）
 │   ├── AGENTS-docs-plans.md             ← → docs/plans/AGENTS.md（计划+日志规范）
 │   ├── AGENTS-tests.md                  ← → tests/AGENTS.md（测试规范）
-│   └── agents/                          ← 6 个 Agent 角色预设├── claude-code/                          ← Claude Code CLI 配置
+│   └── agents/                          ← 6 个 Agent 角色预设├── claude-code/                          ← Claude Code 配置
 │   ├── README.md
 │   ├── CLAUDE-template.md                ← 重命名为 CLAUDE.md 使用
 │   ├── .claude/
@@ -157,7 +216,7 @@ AI 会自动读取预配置的规则，按以下流程引导你：
 ## 前置要求
 
 - [VS Code](https://code.visualstudio.com/)（使用 GitHub Copilot 时）
-- [GitHub Copilot](https://github.com/features/copilot) 订阅（含 Copilot Chat），或 [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code)，或 [Codex CLI](https://github.com/openai/codex)
+- [GitHub Copilot](https://github.com/features/copilot) 订阅（含 Copilot Chat），或 [Claude Code](https://docs.anthropic.com/en/docs/claude-code)，或 [Codex CLI](https://github.com/openai/codex)
 - Git（用于保存进度）
 
 ## 使用哪个环境？
@@ -165,8 +224,8 @@ AI 会自动读取预配置的规则，按以下流程引导你：
 | 环境 | 配置目录 | 适用场景 |
 |------|---------|---------|
 | **GitHub Copilot**（VS Code） | `github-copilot/` | 日常在 VS Code 内开发 |
-| **Codex CLI** | `codex/` | 使用 Codex 命令行工具 |
-| **Claude Code CLI** | `claude-code/` | 使用 `claude` 命令行工具 |
+| **Codex** | `codex/` | 使用 Codex（CLI / 桌面版 / 插件） |
+| **Claude Code** | `claude-code/` | 使用 Claude Code（CLI / VS Code 插件） |
 
 三个环境可以同时配置，互不冲突。详见各目录下的 `README.md`。
 

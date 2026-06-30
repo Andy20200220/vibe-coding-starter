@@ -222,7 +222,7 @@ PRD 给方向，行为契约给边界。AI 拿着 PRD 会自由发挥，拿着�
 不同工具有不同的项目说明文件，相当于给 AI 的"长期工作规则"：
 - Claude Code 读 `CLAUDE.md`（项目根目录）
 - GitHub Copilot 读 `.github/copilot-instructions.md`（`.github/` 目录下）
-- Codex CLI 读 `AGENTS.md`（任意目录，可多层嵌套）
+- Codex 读 `AGENTS.md`（任意目录，可多层嵌套）
 
 建议写：
 - 项目是什么、技术栈、目录结构、常用命令
@@ -323,7 +323,7 @@ PRD 给方向，行为契约给边界。AI 拿着 PRD 会自由发挥，拿着�
 
 不同的 AI 工具读取不同的配置文件，把你的规则放在对应工具能识别的位置才会生效。
 
-| 对比项 | GitHub Copilot | Claude Code | **Codex CLI** |
+| 对比项 | GitHub Copilot | Claude Code | **Codex** |
 |--------|---------------|-------------|-------------|
 | 专属配置文件 | `.github/copilot-instructions.md` | `CLAUDE.md` | **`AGENTS.md`** |
 | 文件位置 | 必须在 `.github/` 下 | 项目根，可多层 | **任意目录，可多层嵌套** |
