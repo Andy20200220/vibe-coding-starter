@@ -1,16 +1,17 @@
 ﻿# Vibe Coding 项目模板
 
+<div align="center">
 
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Tools](https://img.shields.io/badge/tools-Copilot%20%7C%20Claude%20Code%20%7C%20Codex-blue)
-![Lang](https://img.shields.io/badge/lang-%E4%B8%AD%E6%96%87%20%7C%20English-orange)
+![Tools](https://img.shields.io/badge/tools-Copilot_|_Claude_Code_|_Codex-blue)
+![Lang](https://img.shields.io/badge/lang-中文_|_English-orange)
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
-![Audience](https://img.shields.io/badge/for-non--coders%20%7C%20developers-lightgrey)
 
-
-[English](#what-is-this) | 中文
+</div>
 
 面向不懂代码的人的 AI 协作开发项目模板。用这个模板创建新项目，即可获得一套完整的 AI 协作工作流。
+
+---
 
 ## 这是什么
 
@@ -22,164 +23,96 @@
 - 修 bug 越修越乱，反复打补丁
 - 长对话后 AI 忘记之前定的规则
 
+### 为什么需要这个模板
+
+不用这套规则直接让 AI 写代码，项目稍微复杂就会出问题。以下是真实场景：
+
+> 团队里两个同事各自用 AI 从零搭项目。初期很顺利，但功能一多就崩了——加新功能时牵一发动全身，改不动；出了 bug 找不到根因，改错了回不来。项目陷入死局。
+>
+> 后来用这个模板重构了同一个项目：补上行为契约、分步实现、每步 Git 提交。同样的需求，一路畅通。
+
+核心差别在这里：
+
+| 没有规则 | 有这套模板 |
+|---------|----------|
+| AI 凭感觉写，改着改着就跑偏 | 先定契约再动手，每一步都可追溯 |
+| 一次改十几文件，崩了不知道哪里炸的 | 每次最多 3 个文件，哪步错一目了然 |
+| 修 bug 没头没尾，越修越乱 | 先解释原因→定位→修复→验证，3 次搞不定就停 |
+| 聊到后面 AI 忘了之前定的规矩 | 关键规则写成文件，每次对话自动重载 |
+| 改崩了只能重来 | 每步 Git 提交，随时回退 |
+
+**怎么用这个模板避免这些问题：**
+
+1. **拿到模板先别急着写代码** — 跟 AI 把你想做什么聊清楚，让 AI 输出产品定义
+2. **每个功能都先过行为契约** — 你确认"用户做什么 → 系统做什么"之后，AI 才开始写
+3. **按 AI 给的验证步骤逐条检查** — 不是"看起来差不多就行"，是真的打开页面点按钮看结果
+4. **改一步，提交一步** — 别攒着一起交，一步错随时回到上一步
+
+> 💡 关键心态：你不是在"指挥 AI 写代码"，而是在 **审查 AI 的工作**。你的价值是判断"对不对"，不是"怎么写"。
+
+---
+
 ## 快速开始
 
-### 1. 用这个模板创建你的项目
+### 新项目从零开始
 
-点击 GitHub 页面上的 **Use this template** → **Create a new repository**，给你的项目起个名字。
+#### 1. 用这个模板创建项目
 
-或者手动克隆：
+点击 GitHub 上的 **Use this template** → **Create a new repository**，给项目起个名字。
 
-```bash
-git clone https://github.com/YOUR_USERNAME/vibe-coding-starter.git my-project
-cd my-project
-rm -rf .git
-git init
-```
+#### 2. 部署配置
 
-### 2. 选择你的 AI 编码环境
-
-根据你使用的 AI 工具选择对应的配置目录：
-
-### 3. 部署配置
-
-根据你选的环境部署对应的配置文件：
+根据你使用的 AI 工具，把对应目录的文件复制到项目根：
 
 | 环境 | 操作 |
 |------|------|
-| **GitHub Copilot** | 把 github-copilot/ 下的 .github/ 和 docs/ 复制到项目根 |
-| **Claude Code** | 把 claude-code/CLAUDE-template.md 复制到根目录，改名 CLAUDE.md，再把 .claude/ 复制到项目根 |
-| **Codex** | 把 codex/AGENTS-template.md 复制到根目录改名 AGENTS.md，其余 AGENTS-*.md 按文件名提示复制到对应子目录 |
+| **GitHub Copilot** | 把 `github-copilot/` 下的 `.github/` 和 `docs/` 复制到项目根 |
+| **Claude Code** | 把 `claude-code/CLAUDE-template.md` 复制到根，改名 `CLAUDE.md`，再把 `.claude/` 复制到根 |
+| **Codex** | 把 `codex/AGENTS-template.md` 复制到根改名 `AGENTS.md`，其余 `AGENTS-*.md` 按文件名提示复制到对应子目录 |
 
-### 4. 开始对话
+#### 3. 跟 AI 对话：四步走
 
-打开你选择的 AI 工具，直接说你的想法，例如：
+配置就绪后，按下面顺序跟 AI 对话：
 
-> "我想做一个小工具，帮我管理客户的跟进记录，能记录每次跟客户聊了什么，提醒我该联系谁了"
+| 轮次 | 你说 | 为什么这样说 |
+|------|------|-------------|
+| **第 1 轮** | "我想做一个小工具，帮 XXX 解决 YYY 问题。核心功能是：A、B、C。你先别写代码，先问我问题把我的需求搞清楚。" | 让 AI 先理解需求，不是一上来就写代码 |
+| **第 2 轮** | AI 问完问题后，如实回答，然后说："你先输出一份产品定义给我确认。" 收到后逐条看，不对就说"XX 改成 YY"。 | 产品定义是你和 AI 之间的共识基础 |
+| **第 3 轮** | "可以了。你帮我选技术方案，用大白话解释优劣，我确认后再初始化项目。" | 别让 AI 替你决定技术栈，你得知道它选了什么、为什么 |
+| **第 4 轮起** | 项目初始化后，AI 会逐功能出行为契约——"用户做什么 → 系统做什么"。你逐条确认，同意的说"通过"，要改的说"改成 XX"。确认完一个功能，AI 才开始写代码。 | 契约是你的验收标准，模糊通过的后面必返工 |
 
-AI 会自动读取预配置的规则，按以下流程引导你：
+> 💡 第 4 轮之后就是循环：出一个功能的契约 → 你确认 → AI 写代码 → 你验证 → Git 提交 → 下一个功能。
 
-1. **先问你问题**（而不是直接写代码）
-2. **输出产品定义** — 你确认
-3. **帮你选技术方案** — 用大白话解释，你同意就行
-4. **初始化项目** — 创建代码骨架，告诉你怎么启动
-5. **细化行为契约** — 每个功能拆成"用户做什么→系统做什么"，你逐条确认
-6. **分步写代码** — 每次只改少量文件，每步都告诉你怎么验证
+### 已有项目接入这套规则
 
-## 项目结构
+已经用 AI 做了一个项目，但越做越乱、改不动了？不用重来，按下面流程把规则接入现有项目即可。
 
+#### 1. 先备份
 
-﻿### 三工具共享架构
+把配置复制进去之前，先问自己：**当前项目有没有 Git？有没有别处备份？**
 
-```mermaid
-flowchart TB
-    subgraph Tools["AI Coding Tools"]
-        GC["GitHub Copilot"]
-        CC["Claude Code"]
-        CX["Codex"]
-    end
+- 如果没有 Git：先跟 AI 说 `"帮我把这个项目用 git init 初始化，做一次初始提交"`，确保能回退
+- 如果有 Git 但很久没提交：先说 `"帮我提交一下当前所有改动"`，确保工作区干净
+- 最保险：手动把整个项目文件夹复制一份到别处
 
-    subgraph Config["Tool Config"]
-        GCI[".github/copilot-instructions.md"]
-        CCI["CLAUDE.md (multi-layer)"]
-        CXI["AGENTS.md (multi-layer)"]
-    end
+#### 2. 复制配置文件
 
-    subgraph Agents["Shared Agent System"]
-        direction LR
-        PA["Product Agent"]
-        SA["SysEng Agent"]
-        PL["Planning Agent"]
-        DA["Dev Agent"]
-        TA["Test Agent"]
-        RA["Release Agent"]
-        PA --> SA --> PL --> DA --> TA --> RA
-    end
+和新项目一样，根据你用的工具把对应配置文件复制到项目根目录（见上方部署表格）。
 
-    subgraph Skills["Shared Skills"]
-        BC["Behavior Contract"]
-        GI["Guided Impl"]
-        TD["TDD"]
-        CR["Code Review"]
-        TS["Tech Selection"]
-    end
+#### 3. 跟 AI 对话：四步走
 
-    subgraph Docs["Shared Docs"]
-        CT["docs/contracts/"]
-        VF["docs/verification/"]
-        DS["docs/design/"]
-        PL2["docs/plans/"]
-    end
+复制完配置后，按下面顺序跟 AI 对话：
 
-    GC --> GCI --> Agents
-    CC --> CCI --> Agents
-    CX --> CXI --> Agents
-    Agents --> Skills --> Docs
-```
+| 轮次 | 你说 | 为什么这样说 |
+|------|------|-------------|
+| **第 1 轮** | "请你先读一下项目里的规则文件（AGENTS.md / CLAUDE.md / copilot-instructions.md），理解这套开发规范之后，告诉我你理解了哪些关键规则。" | 先让 AI 吃透规则，别上来就让它改代码 |
+| **第 2 轮** | "这个项目目前的问题是 XXX。你基于刚才读到的规则，告诉我该怎么用这套规则来优化重构这个项目？先给我建议方案，别直接改代码。" | 让 AI 基于规则出方案，而不是凭感觉改 |
+| **第 3 轮** | 逐条看 AI 给的方案，确认："第 1、3 条没问题。第 2 条我想改成 YYY。第 4 条先不做。你按确认的这些，分步开始重构。" | 你掌控节奏，不是 AI 说了算 |
+| **第 4 轮起** | AI 每改完一步，你就按它给的验证步骤检查。通过就说通过，出问题就说："这步改出问题了，帮我把最近一次 Git 提交回退掉。" | 改一步验一步，不回退永远不乱 |
 
-> 三个工具各有专属配置文件，但共享同一套 Agent 角色体系、技能库和文档结构。换工具不换流程。
+> ⚠️ 已有项目的首次重构是最关键的一步。别跳轮次，别催 AI 直接改代码——磨刀不误砍柴工。
 
-```
-├── github-copilot/                       ← GitHub Copilot（VS Code）配置
-│   ├── README.md
-│   ├── .github/
-│   │   ├── copilot-instructions.md
-│   │   ├── prompts/
-│   │   │   ├── clarify-my-requirement.prompt.md
-│   │   │   └── diagnose-and-fix.prompt.md
-│   │   ├── agents/                       ← 5 个专职子 Agent
-│   │   │   ├── product-agent.agent.md
-│   │   │   ├── planning-agent.agent.md
-│   │   │   ├── dev-agent.agent.md
-│   │   │   ├── test-agent.agent.md
-│   │   │   └── release-agent.agent.md
-│   │   └── skills/                       ← 25 个 skills
-│   └── docs/
-│       ├── contracts/
-│       └── verification/
-├── codex/                               ← Codex 配置
-│   ├── README.md                        ← 接入指南
-│   ├── AGENTS-template.md               ← → 根 AGENTS.md（全局约束+Agent调度）
-│   ├── AGENTS-src.md                    ← → src/AGENTS.md（代码规范）
-│   ├── AGENTS-docs-contracts.md         ← → docs/contracts/AGENTS.md（契约规范）
-│   ├── AGENTS-docs-verification.md      ← → docs/verification/AGENTS.md（验证规范）
-│   ├── AGENTS-docs-design.md            ← → docs/design/AGENTS.md（设计规范）
-│   ├── AGENTS-docs-plans.md             ← → docs/plans/AGENTS.md（计划+日志规范）
-│   ├── AGENTS-tests.md                  ← → tests/AGENTS.md（测试规范）
-│   └── agents/                          ← 6 个 Agent 角色预设├── claude-code/                          ← Claude Code 配置
-│   ├── README.md
-│   ├── CLAUDE-template.md                ← 重命名为 CLAUDE.md 使用
-│   ├── .claude/
-│   │   ├── commands/
-│   │   │   ├── clarify-my-requirement.md
-│   │   │   └── diagnose-and-fix.md
-│   │   ├── agents/                       ← 5 个专职子 Agent
-│   │   │   ├── product-agent.md
-│   │   │   ├── planning-agent.md
-│   │   │   ├── dev-agent.md
-│   │   │   ├── test-agent.md
-│   │   │   └── release-agent.md
-│   │   └── skills/                       ← 25 个 skills（同 GC）
-│   └── docs/
-│       ├── contracts/
-│       └── verification/
-├── .github/
-│   └── copilot-instructions.md           ← 本模板仓库自身的 AI 规则
-├── docs/
-│   ├── contracts/
-│   └── verification/
-├── vibe-coding-guide.md                  ← 完整实战指南（必读）
-└── README.md
-```
-
-## 日常使用
-
-| 你想做的事 | 怎么跟 AI 说（Copilot / Claude Code / Codex 通用） |
-|-----------|-------------|
-| 全新产品想法 | 直接描述你想做什么，AI 会引导你完成产品定义 |
-| 给项目加功能 | "我想加一个 XX 功能"，AI 会先做行为契约再实现 |
-| 发现了 bug | "我点了 XX 之后出现了 YY，但我期望看到 ZZ" |
-| 了解项目状态 | "帮我看看项目现在的状态" |
+---
 
 ## 核心原则
 
@@ -189,84 +122,84 @@ flowchart TB
 4. **关键规则写成文件** — 不靠对话记忆，写进 instructions
 5. **阶段性保存** — 每个功能做完用 Git 提交
 
-## 你不需要做的事
+---
 
-- 不需要看代码
-- 不需要懂技术术语
-- 不需要自己写任何配置
-- 不需要记住之前说过什么
+## 项目结构
 
-## 你唯一需要做的事
+```
+vibe-coding-starter/
+├── github-copilot/          ← GitHub Copilot 配置（instructions、agents、skills、docs）
+├── claude-code/             ← Claude Code 配置（CLAUDE.md、.claude/）
+├── codex/                   ← Codex 配置（AGENTS.md、agents/）
+├── docs/                    ← 共享文档（contracts/、verification/）
+├── vibe-coding-guide.md     ← 完整实战指南（必读）
+└── README.md
+```
 
-- 用自己的话描述想法
-- 逐条确认 AI 给你的行为契约
-- 每步按 AI 给的步骤验证（打开页面、点按钮、看结果）
-- 不对的时候说"不对"
+> 三个工具有各自的配置文件入口，但共享同一套 Agent 角色体系、技能库和文档结构——**换工具不换流程**。各目录下均有独立的 `README.md` 说明接入方式，可同时配置、互不冲突。
 
-## 详细指南
+---
+
+## 环境选择
+
+| 环境 | 配置目录 | 适用场景 |
+|------|---------|---------|
+| **GitHub Copilot**（VS Code） | `github-copilot/` | 日常在 VS Code 内开发 |
+| **Claude Code**（CLI / VS Code） | `claude-code/` | 使用 Claude Code |
+| **Codex**（CLI / 桌面版） | `codex/` | 使用 Codex |
+
+**前置要求：**
+- [VS Code](https://code.visualstudio.com/)（使用 GitHub Copilot 时）
+- [GitHub Copilot](https://github.com/features/copilot) 订阅，或 [Claude Code](https://docs.anthropic.com/en/docs/claude-code)，或 [Codex CLI](https://github.com/openai/codex)
+- Git（用于保存进度）
+
+---
+
+## 使用场景
+
+| 场景 | 适合度 | 说明 |
+|------|:---:|------|
+| 不懂代码的产品人 | ⭐⭐⭐ | 大白话流程，不用看代码 |
+| 小团队快速做原型 | ⭐⭐⭐ | 契约驱动 + 分步验证很适合迭代 |
+| 有经验的个人开发者 | ⭐⭐ | 流程偏重，可能觉得约束多 |
+| 专业工程团队 | ⭐ | 缺少 CI/CD 等，建议搭配 Superpowers |
+
+---
+
+## 你不需要 vs 你只需要
+
+| 你不需要 ❌ | 你只需要 ✅ |
+|------------|------------|
+| 看代码 | 用自己的话描述想法 |
+| 懂技术术语 | 逐条确认 AI 给你的行为契约 |
+| 自己写配置 | 每步按 AI 给的步骤验证（打开页面、点按钮、看结果） |
+| 记住之前说过什么 | 不对的时候说"不对" |
+
+---
+
+## 📖 详细指南
 
 阅读 [vibe-coding-guide.md](vibe-coding-guide.md) 了解完整方法论：
 - 从零做一个产品的 6 个阶段
 - PRD 和行为契约的关系
 - 为什么传统对话式开发效果差
 - 常见失败模式和解决方法
-- AI 协作脚手架全解析
-- GitHub Copilot 与 Claude Code 的配置差异、与 Codex 的配置差异
-
-## 前置要求
-
-- [VS Code](https://code.visualstudio.com/)（使用 GitHub Copilot 时）
-- [GitHub Copilot](https://github.com/features/copilot) 订阅（含 Copilot Chat），或 [Claude Code](https://docs.anthropic.com/en/docs/claude-code)，或 [Codex CLI](https://github.com/openai/codex)
-- Git（用于保存进度）
-
-## 使用哪个环境？
-
-| 环境 | 配置目录 | 适用场景 |
-|------|---------|---------|
-| **GitHub Copilot**（VS Code） | `github-copilot/` | 日常在 VS Code 内开发 |
-| **Codex** | `codex/` | 使用 Codex（CLI / 桌面版 / 插件） |
-| **Claude Code** | `claude-code/` | 使用 Claude Code（CLI / VS Code 插件） |
-
-三个环境可以同时配置，互不冲突。详见各目录下的 `README.md`。
-
-
-## 局限性
-
-### 适用场景边界
-
-| 场景 | 适合度 | 说明 |
-|------|:---:|------|
-| 不懂代码的产品人 | ⭐⭐⭐ | 核心场景：大白话流程，不用看代码 |
-| 小团队快速做原型 | ⭐⭐⭐ | 契约驱动 + 分步验证很适合快速迭代 |
-| 有工程经验的个人开发者 | ⭐⭐ | 流程偏重，可能觉得约束太多 |
-| 专业工程团队 | ⭐ | 缺少 CI/CD、lint、monorepo 等模板，建议搭配 Superpowers 等工程化方案 |
-
-### 具体局限
-
-**测试基础设施无现成模板**
-提到了 TDD 和验证流程，但没有提供 jest/vitest/playwright 的现成配置文件。需要 AI 在项目初始化时当场生成——能力有，开箱即用度不如 Superpowers。
-
-**缺少 CI/CD 和工程化配置**
-没有 GitHub Actions 模板、Git hooks、lint 规则、monorepo 支持。这些对有工程规范的团队是刚需，目前需要自行补充。
-
-**12 阶段流程对小项目偏重**
-完整的「行为契约 → 架构设计 → 测试先行 → 分步实现 → 审查 → 交付」流程，对轻量级 demo 或单文件脚本来说过于正式，可以按需裁剪。
-
-**依赖用户自律**
-规则写进了文件，但能否严格执行取决于用户是否遵守流程。模板提供的是约束框架，不是强制执行机制。
-
-**Codex 的代理系统差异**
-Codex 的子 Agent 不自动加载人设文件——需要主 Agent 按 AGENTS.md 中的调度规则手动读取并传入。体验上和 CC 的自动加载有细微差异。
-
-**三工具对齐的代价**
-为了让 GC、CC、Codex 三个工具共用同一套流程，部分工具专属特性被有意简化。例如 CC 的 `.claude/commands/` 和 GC 的 `.github/prompts/` 在 Codex 侧没有对等机制，直接用自然语言替代。
-
-**非技术用户的天花板**
-这套方案能让不懂代码的人控制项目质量，但不等于能处理所有问题。性能调优、安全漏洞、复杂重构仍需技术判断——AI 能帮你写，但不能替你判断。
+- 三工具配置差异详解
 
 ---
 
-> 如果你需要更强的工程化能力（CI/CD、lint、Git hooks、monorepo），建议搭配 [Superpowers](https://github.com/transloadit/superpowers) 使用。两者互补：你管流程，它管工程。
+## 局限性
+
+- **无测试/CI/CD 模板** — TDD 流程有规划但无 jest/vitest/playwright 等现成配置，需 AI 现场生成
+- **流程对小项目偏重** — 完整契约流程对轻量 demo 可能过于正式，按需裁剪即可
+- **依赖用户自律** — 规则写进文件但不强制执行，效果取决于是否遵守流程
+- **三工具对齐代价** — 部分工具专属特性被简化以保持流程一致
+- **非技术用户有天花板** — 性能调优、安全漏洞、复杂重构仍需技术判断
+
+> 需要更强工程化能力？搭配 [Superpowers](https://github.com/transloadit/superpowers) 使用：你管流程，它管工程。
+
+---
+
 ## License
 
 MIT
