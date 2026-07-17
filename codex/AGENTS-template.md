@@ -70,11 +70,20 @@ tests/          # 测试代码
 
 ---
 
-## 活跃文档
+## 活跃文档 / Active Documents
 
-- docs/contracts/product-definition.md — 产品定义（如果存在）
-- docs/contracts/*.md — 各功能行为契约
-- docs/verification/*.md — 各功能验证清单
+新会话启动时，先读启动指南建立认知，再讨论任务：
+
+1. `docs/ai-startup-guide.md` — **新会话必读**（三步建立项目认知）
+2. `docs/handoff.md` — 交接文档（最新快照：模块状态、关键决策、常用命令）
+3. `docs/plans/execution-log.md` — 执行记录（完整历史流水账）
+
+模块文档按需读取：
+- `docs/reference/project-brief.md` — 项目摘要
+- `docs/reference/ai-persona.md` — AI人设
+- `docs/contracts/*.md` — 各功能行为契约
+- `docs/design/*.md` — 各模块技术设计
+- `docs/verification/*.md` — 各功能验证清单
 
 ---
 
