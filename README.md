@@ -128,15 +128,25 @@
 
 ```
 vibe-coding-starter/
-├── github-copilot/          ← GitHub Copilot 配置（instructions、agents、skills、docs）
+├── github-copilot/          ← GitHub Copilot 配置（instructions、agents、skills）
 ├── claude-code/             ← Claude Code 配置（CLAUDE.md、.claude/）
 ├── codex/                   ← Codex 配置（AGENTS.md、agents/）
-├── docs/                    ← 共享文档（contracts/、verification/）
+├── docs/                    ← 共享文档模板
+│   ├── ai-startup-guide.md  ← ★ 新会话启动指南（AI 自举入口）
+│   ├── handoff-template.md  ← 交接文档模板
+│   ├── contracts/           ← 行为契约模板
+│   ├── verification/        ← 验证清单模板
+│   ├── design/              ← 技术设计模板
+│   ├── plans/               ← 执行记录模板
+│   └── reference/           ← 参考文档
+│       ├── documentation-system-guide.md  ← 文档体系搭建指南
+│       ├── project-brief-template.md      ← 项目摘要模板
+│       └── ai-persona-template.md         ← AI 人设模板
 ├── vibe-coding-guide.md     ← 完整实战指南（必读）
 └── README.md
 ```
 
-> 三个工具有各自的配置文件入口，但共享同一套 Agent 角色体系、技能库和文档结构——**换工具不换流程**。各目录下均有独立的 `README.md` 说明接入方式，可同时配置、互不冲突。
+> 三个工具有各自的配置文件入口，但共享同一套文档结构。新项目启动后，AI 会自动顺着 `ai-startup-guide` → `project-brief` → `handoff` → `execution-log` 的阅读链建立认知。详见 `docs/reference/documentation-system-guide.md`。
 
 ---
 
@@ -179,12 +189,8 @@ vibe-coding-starter/
 
 ## 📖 详细指南
 
-阅读 [vibe-coding-guide.md](vibe-coding-guide.md) 了解完整方法论：
-- 从零做一个产品的 6 个阶段
-- PRD 和行为契约的关系
-- 为什么传统对话式开发效果差
-- 常见失败模式和解决方法
-- 三工具配置差异详解
+- [vibe-coding-guide.md](vibe-coding-guide.md) — 完整方法论（6阶段开发流程、PRD与契约关系、失败模式）
+- [docs/reference/documentation-system-guide.md](docs/reference/documentation-system-guide.md) — 文档体系搭建指南（阅读链设计、交接文档、执行记录）
 
 ---
 
